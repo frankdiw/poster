@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@types/node": "^20.10.8",
+    "canvas": "^2.11.2"
+  },
+  "name": "poster",
+  "version": "1.0.0",
+  "main": "canvas.js",
+  "scripts": {
+    "start": "ts-node ./index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  }
+}
