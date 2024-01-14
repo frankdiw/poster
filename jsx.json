@@ -1,0 +1,183 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 149,
+  "body": [
+    {
+      "type": "ExpressionStatement",
+      "start": 0,
+      "end": 149,
+      "expression": {
+        "type": "JSXElement",
+        "start": 0,
+        "end": 149,
+        "openingElement": {
+          "type": "JSXOpeningElement",
+          "start": 0,
+          "end": 36,
+          "attributes": [
+            {
+              "type": "JSXAttribute",
+              "start": 5,
+              "end": 35,
+              "name": {
+                "type": "JSXIdentifier",
+                "start": 5,
+                "end": 10,
+                "name": "style"
+              },
+              "value": {
+                "type": "JSXExpressionContainer",
+                "start": 11,
+                "end": 35,
+                "expression": {
+                  "type": "ObjectExpression",
+                  "start": 12,
+                  "end": 34,
+                  "properties": [
+                    {
+                      "type": "Property",
+                      "start": 13,
+                      "end": 23,
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "key": {
+                        "type": "Identifier",
+                        "start": 13,
+                        "end": 19,
+                        "name": "height"
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "start": 20,
+                        "end": 23,
+                        "value": 200,
+                        "raw": "200"
+                      },
+                      "kind": "init"
+                    },
+                    {
+                      "type": "Property",
+                      "start": 24,
+                      "end": 33,
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "key": {
+                        "type": "Identifier",
+                        "start": 24,
+                        "end": 29,
+                        "name": "width"
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "start": 30,
+                        "end": 33,
+                        "value": 200,
+                        "raw": "200"
+                      },
+                      "kind": "init"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "name": {
+            "type": "JSXIdentifier",
+            "start": 1,
+            "end": 4,
+            "name": "div"
+          },
+          "selfClosing": false
+        },
+        "closingElement": {
+          "type": "JSXClosingElement",
+          "start": 143,
+          "end": 149,
+          "name": {
+            "type": "JSXIdentifier",
+            "start": 145,
+            "end": 148,
+            "name": "div"
+          }
+        },
+        "children": [
+          {
+            "type": "JSXText",
+            "start": 36,
+            "end": 37,
+            "value": "\n",
+            "raw": "\n"
+          },
+          {
+            "type": "JSXElement",
+            "start": 37,
+            "end": 142,
+            "openingElement": {
+              "type": "JSXOpeningElement",
+              "start": 37,
+              "end": 142,
+              "attributes": [
+                {
+                  "type": "JSXAttribute",
+                  "start": 42,
+                  "end": 132,
+                  "name": {
+                    "type": "JSXIdentifier",
+                    "start": 42,
+                    "end": 45,
+                    "name": "src"
+                  },
+                  "value": {
+                    "type": "Literal",
+                    "start": 46,
+                    "end": 132,
+                    "value": "https://developer.qcloudimg.com/http-save/10011/5219d8aaa3af9ce46e90ac5f2b200821.jpg",
+                    "raw": "\"https://developer.qcloudimg.com/http-save/10011/5219d8aaa3af9ce46e90ac5f2b200821.jpg\""
+                  }
+                },
+                {
+                  "type": "JSXAttribute",
+                  "start": 133,
+                  "end": 139,
+                  "name": {
+                    "type": "JSXIdentifier",
+                    "start": 133,
+                    "end": 136,
+                    "name": "alt"
+                  },
+                  "value": {
+                    "type": "Literal",
+                    "start": 137,
+                    "end": 139,
+                    "value": "",
+                    "raw": "\"\""
+                  }
+                }
+              ],
+              "name": {
+                "type": "JSXIdentifier",
+                "start": 38,
+                "end": 41,
+                "name": "img"
+              },
+              "selfClosing": true
+            },
+            "closingElement": null,
+            "children": []
+          },
+          {
+            "type": "JSXText",
+            "start": 142,
+            "end": 143,
+            "value": "\n",
+            "raw": "\n"
+          }
+        ]
+      }
+    }
+  ],
+  "sourceType": "script"
+}
