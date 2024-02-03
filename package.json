@@ -10,7 +10,7 @@
   "version": "1.0.0",
   "main": "canvas.js",
   "scripts": {
-    "start": "ts-node ./parse.ts"
+    "start": "ts-node ./index.ts"
   },
   "author": "",
   "license": "ISC",

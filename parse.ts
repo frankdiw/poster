@@ -1,22 +1,17 @@
 import { Parser, Program } from "acorn";
 import acornJsx from "acorn-jsx";
+import fs from 'fs';
 Parser.extend(acornJsx());
 
 const ast = Parser.extend(acornJsx()).parse(
-  `
-  <div>
-    {a.c.height}
-  </div>
-
-  `,
+  fs.readFileSync('./index.jsx',{encoding: 'utf-8'}),
   {
     ecmaVersion: 2023,
   }
 );
 
 const data: any = {
-  a: { b: "CESHIWENBEN", width: 200, c: { height: 2000 } },
-  width: 200,
+
 };
 
 function extractTagsAndAttributes(node: any): any {
