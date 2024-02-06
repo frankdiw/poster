@@ -1,16 +1,20 @@
 {
   "dependencies": {
+    "@babel/generator": "^7.23.6",
+    "@babel/parser": "^7.23.9",
+    "@babel/traverse": "^7.23.9",
+    "@babel/types": "^7.23.9",
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__traverse": "^7.20.5",
     "@types/node": "^20.10.8",
-    "acorn": "^8.11.3",
-    "acorn-jsx": "^5.3.2",
-    "acorn-walk": "^8.3.2",
-    "canvas": "^2.11.2"
+    "canvas": "^2.11.2",
+    "jsx-to-json": "^0.2.3"
   },
   "name": "poster",
   "version": "1.0.0",
   "main": "canvas.js",
   "scripts": {
-    "start": "ts-node ./index.ts"
+    "start": "ts-node ./parse.ts"
   },
   "author": "",
   "license": "ISC",

@@ -1,4 +1,4 @@
-import { Image, CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "canvas";
 type DrawParagraphParamsType = {
   x: number;
   y: number;
