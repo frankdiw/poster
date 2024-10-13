@@ -1,11 +1,15 @@
-import { createCanvas } from "canvas";
+import { CanvasRenderingContext2D, createCanvas, loadImage } from "canvas";
 import fs from "fs";
-import { drawParagraph } from "./utils/paragraph";
+import {layout} from "./libs/layout";
 import { parse } from "./libs/parse";
-const canvas = createCanvas(750, 1392);
-const ctx = canvas.getContext("2d");
-
+import { draw } from "./draw";
+let ctx: CanvasRenderingContext2D;
 (async () => {
-  const result= parse(fs.readFileSync('./index.jsx',{encoding:'utf-8'}), {a:1})
-  console.log(JSON.stringify(result,null,2))
+  const root = parse(fs.readFileSync("./test.jsx", "utf-8"), { height: 15 });
+  const element = layout(root);  
+  const { width, height } = element.node?.getComputedLayout() || {};
+  const canvas = createCanvas(width || 0, height || 0);
+  ctx = canvas.getContext("2d");
+  await draw(ctx, root);
+  fs.writeFileSync("./test.png", canvas.toBuffer());
 })();

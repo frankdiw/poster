@@ -1,86 +1,101 @@
-export function calculateGradientCoordinate(
-  width: number,
-  height: number,
-  angle = 180,
-) {
-  if (angle >= 360) angle = angle - 360;
-  if (angle < 0) angle = angle + 360;
-  angle = Math.round(angle);
+export function calculateGradientCoordinate({
+  left,
+  top,
+  width,
+  height,
+  direction,
+}: {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  direction: number | string;
+}) {
+  if (typeof direction === 'string') {
+    if (direction === 'topRight') {
+      return { x0: left, y0: height + top, x1: width + left, y1: top };
+    } else if (direction === 'topLeft') {
+      return { x0: left + width, y0: top + height, x1: left, y1: top };
+    } else if (direction === 'bottomLeft') {
+      return { x0: width + left, y0: top, x1: left, y1: height + top };
+    } else {
+      return { x0: left, y0: top, x1: width + left, y1: height + top };
+    }
+  }
+  if (direction >= 360) direction = direction - 360;
+  if (direction < 0) direction = direction + 360;
+  direction = Math.round(direction);
 
   // 当渐变轴垂直于矩形水平边上的两种结果
-  if (angle === 0) {
+  if (direction === 0) {
     return {
-      x0: Math.round(width / 2),
-      y0: height,
-      x1: Math.round(width / 2),
-      y1: 0,
+      x0: Math.round(width / 2) + left,
+      y0: height + top,
+      x1: Math.round(width / 2) + left,
+      y1: top,
     };
   }
-  if (angle === 180) {
+  if (direction === 180) {
     return {
-      x0: Math.round(width / 2),
-      y0: 0,
-      x1: Math.round(width / 2),
-      y1: height,
+      x0: Math.round(width / 2) + left,
+      y0: top,
+      x1: Math.round(width / 2) + left,
+      y1: height + top,
     };
   }
 
   // 当渐变轴垂直于矩形垂直边上的两种结果
-  if (angle === 90) {
+  if (direction === 90) {
     return {
-      x0: 0,
-      y0: Math.round(height / 2),
-      x1: width,
-      y1: Math.round(height / 2),
+      x0: left,
+      y0: Math.round(height / 2) + top,
+      x1: width + left,
+      y1: Math.round(height / 2) + top,
     };
   }
-  if (angle === 270) {
+  if (direction === 270) {
     return {
-      x0: width,
-      y0: Math.round(height / 2),
-      x1: 0,
-      y1: Math.round(height / 2),
+      x0: width + left,
+      y0: Math.round(height / 2) + top,
+      x1: left,
+      y1: Math.round(height / 2) + top,
     };
   }
 
   // 从矩形左下角至右上角的对角线的角度
-  const alpha = Math.round(
-    (Math.asin(width / Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2))) *
-      180) /
-      Math.PI,
-  );
+  const alpha = Math.round((Math.asin(width / Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2))) * 180) / Math.PI);
 
   // 当渐变轴分别于矩形的两条对角线重合情况下的四种结果
-  if (angle === alpha) {
+  if (direction === alpha) {
     return {
-      x0: 0,
-      y0: height,
-      x1: width,
-      y1: 0,
+      x0: left,
+      y0: height + top,
+      x1: width + left,
+      y1: top,
     };
   }
-  if (angle === 180 - alpha) {
+  if (direction === 180 - alpha) {
     return {
-      x0: 0,
-      y0: 0,
-      x1: width,
-      y1: height,
+      x0: left,
+      y0: top,
+      x1: width + left,
+      y1: height + top,
     };
   }
-  if (angle === 180 + alpha) {
+  if (direction === 180 + alpha) {
     return {
-      x0: width,
-      y0: 0,
-      x1: 0,
-      y1: height,
+      x0: width + left,
+      y0: top,
+      x1: left,
+      y1: height + top,
     };
   }
-  if (angle === 360 - alpha) {
+  if (direction === 360 - alpha) {
     return {
-      x0: width,
-      y0: height,
-      x1: 0,
-      y1: 0,
+      x0: width + left,
+      y0: height + top,
+      x1: left,
+      y1: top,
     };
   }
 
@@ -92,21 +107,18 @@ export function calculateGradientCoordinate(
 
   // 当渐变轴与矩形的交点落在水平线上
   if (
-    angle < alpha || // 处于第一象限
-    (angle > 180 - alpha && angle < 180) || // 处于第二象限
-    (angle > 180 && angle < 180 + alpha) || // 处于第三象限
-    angle > 360 - alpha // 处于第四象限
+    direction < alpha || // 处于第一象限
+    (direction > 180 - alpha && direction < 180) || // 处于第二象限
+    (direction > 180 && direction < 180 + alpha) || // 处于第三象限
+    direction > 360 - alpha // 处于第四象限
   ) {
     // 将角度乘以（PI/180）即可转换为弧度
-    const radian = (angle * Math.PI) / 180;
+    const radian = (direction * Math.PI) / 180;
     // 当在第一或第四象限，y是height / 2，否则y是-height / 2
-    const y = angle < alpha || angle > 360 - alpha ? height / 2 : -height / 2;
+    const y = direction < alpha || direction > 360 - alpha ? height / 2 : -height / 2;
     const x = Math.tan(radian) * y;
     // 当在第一或第二象限，l是width / 2 - x，否则l是-width / 2 - x
-    const l =
-      angle < alpha || (angle > 180 - alpha && angle < 180)
-        ? width / 2 - x
-        : -width / 2 - x;
+    const l = direction < alpha || (direction > 180 - alpha && direction < 180) ? width / 2 - x : -width / 2 - x;
     const n = Math.pow(Math.sin(radian), 2) * l;
     x1 = x + n;
     y1 = y + n / Math.tan(radian);
@@ -116,22 +128,20 @@ export function calculateGradientCoordinate(
 
   // 当渐变轴与矩形的交点落在垂直线上
   if (
-    (angle > alpha && angle < 90) || // 处于第一象限
-    (angle > 90 && angle < 180 - alpha) || // 处于第二象限
-    (angle > 180 + alpha && angle < 270) || // 处于第三象限
-    (angle > 270 && angle < 360 - alpha) // 处于第四象限
+    (direction > alpha && direction < 90) || // 处于第一象限
+    (direction > 90 && direction < 180 - alpha) || // 处于第二象限
+    (direction > 180 + alpha && direction < 270) || // 处于第三象限
+    (direction > 270 && direction < 360 - alpha) // 处于第四象限
   ) {
     // 将角度乘以（PI/180）即可转换为弧度
-    const radian = ((90 - angle) * Math.PI) / 180;
+    const radian = ((90 - direction) * Math.PI) / 180;
     // 当在第一或第二象限，x是width / 2，否则x是-width / 2
     const x =
-      (angle > alpha && angle < 90) || (angle > 90 && angle < 180 - alpha)
-        ? width / 2
-        : -width / 2;
+      (direction > alpha && direction < 90) || (direction > 90 && direction < 180 - alpha) ? width / 2 : -width / 2;
     const y = Math.tan(radian) * x;
     // 当在第一或第四象限，l是height / 2 - y，否则l是-height / 2 - y
     const l =
-      (angle > alpha && angle < 90) || (angle > 270 && angle < 360 - alpha)
+      (direction > alpha && direction < 90) || (direction > 270 && direction < 360 - alpha)
         ? height / 2 - y
         : -height / 2 - y;
     const n = Math.pow(Math.sin(radian), 2) * l;
@@ -142,10 +152,10 @@ export function calculateGradientCoordinate(
   }
 
   // 坐标系更改为canvas标准，Y轴向下为正方向
-  x0 = Math.round(x0 + width / 2);
-  y0 = Math.round(height / 2 - y0);
-  x1 = Math.round(x1 + width / 2);
-  y1 = Math.round(height / 2 - y1);
+  x0 = Math.round(x0 + width / 2) + left;
+  y0 = Math.round(height / 2 - y0) + top;
+  x1 = Math.round(x1 + width / 2) + left;
+  y1 = Math.round(height / 2 - y1) + top;
 
-  return { x0, y0, x1, y1 };
+  return { x0: x0, y0: y0, x1, y1 };
 }

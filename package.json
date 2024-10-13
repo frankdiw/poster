@@ -1,26 +1,22 @@
 {
   "dependencies": {
-    "@babel/generator": "^7.23.6",
-    "@babel/parser": "^7.23.9",
-    "@babel/traverse": "^7.23.9",
-    "@babel/types": "^7.23.9",
-    "@types/babel__generator": "^7.6.8",
-    "@types/babel__traverse": "^7.20.5",
-    "@types/node": "^20.10.8",
-    "canvas": "^2.11.2"
+    "@swc/core": "^1.5.24",
+    "canvas": "^3.0.0-rc2",
+    "yoga-layout": "^3.0.4"
   },
   "name": "poster",
   "version": "1.0.0",
   "main": "canvas.js",
   "scripts": {
-    "start": "ts-node ./index.ts"
+    "start": "tsx ./index.ts"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "ts-node": "^10.9.2",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.3"
+    "tsx": "^4.11.0",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.8"
   }
 }
