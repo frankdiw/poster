@@ -1,20 +1,7 @@
-import { CanvasRenderingContext2D, createCanvas } from 'canvas';
-import fs from 'fs';
+import { createCanvas } from 'canvas';
 import { layout } from './libs/layout';
 import { parse } from './libs/parse';
 import { draw } from './draw';
-let ctx: CanvasRenderingContext2D;
-(async () => {
-  console.time('poster');
-  const buffer = await poster({
-    jsx: fs.readFileSync('./test.jsx', 'utf-8'),
-    props: { height: 15 },
-    mimeType: 'image/jpeg',
-    returnType: 'base64',
-  });
-  console.timeEnd('poster');
-  fs.writeFileSync('./test.txt', buffer);
-})();
 export type PosterParamsType = {
   jsx: string;
   props?: Record<string, any>;
@@ -32,7 +19,7 @@ export default async function poster({
   const element = layout(root);
   const { width, height } = element.node?.getComputedLayout() || {};
   const canvas = createCanvas(width || 0, height || 0);
-  ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   await draw(ctx, root);
   if (mimeType === 'image/png') {
     if (returnType === 'base64') {

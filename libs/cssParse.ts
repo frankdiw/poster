@@ -1,4 +1,6 @@
-import { ColorStopType } from '../draw/rect';
+import { SUPPORT_STYLE_PROPERTIES } from "../constant";
+import { ColorStopType } from "../type";
+
 
 export const isColor = (value: string) => {
   return ['#', 'rgb', 'hsl'].some((item) =>
@@ -151,7 +153,7 @@ export const parseGap = (gap: string | number) => {
   return { row, column: column || row };
 };
 
-export const parseCSS = (style?: Record<string, any>) => {
+export const parseStyle = (style?: Record<string, any>) => {
   if (!style) {
     return {};
   }

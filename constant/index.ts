@@ -1,0 +1,22 @@
+export const SUPPORT_STYLE_PROPERTIES = [
+  "background",
+  "border",
+  "borderRadius",
+  "boxShadow",
+  "gap",
+  "margin",
+  "padding",
+  "paddingTop",
+  "paddingRight",
+  "paddingBottom",
+  "paddingLeft",
+  "marginTop",
+  "marginRight",
+  "marginBottom",
+  "marginLeft",
+  "borderTop",
+  "borderRight",
+  "borderBottom",
+  "borderLeft",
+  
+];

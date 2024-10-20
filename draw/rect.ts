@@ -1,11 +1,6 @@
-import { Image, CanvasRenderingContext2D, loadImage, CanvasGradient } from 'canvas';
-import { BorderType } from '../type';
+import { CanvasRenderingContext2D, loadImage } from 'canvas';
+import { BorderType, ColorStopType } from '../type';
 import { calculateGradientCoordinate } from '../libs/line-gradient';
-
-export type ColorStopType = {
-  color:string;
-  position: number;
-}
 type DrawRectOptionsType = {
   left: number;
   top: number;

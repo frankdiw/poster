@@ -1,6 +1,6 @@
 import { CanvasRenderingContext2D } from "canvas";
 import { ElementType } from "../type";
-import { drawParagraph } from "./paragraph";
+import { drawText } from "./text";
 import { drawRect } from "./rect";
 
 export async function draw(
@@ -25,7 +25,7 @@ export async function draw(
   const currentTop = top + parentTop;
 
   if (element?.type === "text") {
-    drawParagraph(ctx, {
+    drawText(ctx, {
       left: currentLeft,
       top: currentTop,
       width,
@@ -37,7 +37,7 @@ export async function draw(
       lineHeight: element.style?.lineHeight,
     });
   } else {
-    const { borderRadius, border, boxShadow, background, opacity, antialias } =
+    const { borderRadius, border, boxShadow, background, opacity } =
       element?.style || {};
     await drawRect(ctx, {
       left: currentLeft,

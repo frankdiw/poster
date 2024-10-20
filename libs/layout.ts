@@ -9,8 +9,8 @@ import Yoga, {
   PositionType,
   Wrap,
 } from "yoga-layout";
-import { parseCSS } from "./cssParse";
-import { measureText } from "../draw/paragraph";
+import { parseStyle } from "./cssParse";
+import { measureText } from "../draw/text";
 
 export function createLayoutTree(
   element: ElementType,
@@ -19,7 +19,7 @@ export function createLayoutTree(
 ) {
   const node = Yoga.Node.create();
   node.setAlwaysFormsContainingBlock(true);
-  const style = parseCSS(element.style);
+  const style = parseStyle(element.style);
   // 处理宽高
   const {
     width,
@@ -45,16 +45,19 @@ export function createLayoutTree(
     top,
     flex,
     alignItems,
+    alignContent,
   } = style;
   width && node.setWidth(width);
   height && node.setHeight(height);
   const { paddingTop, paddingBottom, paddingLeft, paddingRight } =
     padding || {};
-  // 处理边距
+
+  // 处理内边距
   paddingTop && node.setPadding(Edge.Top, paddingTop);
   paddingBottom && node.setPadding(Edge.Bottom, paddingBottom);
   paddingLeft && node.setPadding(Edge.Left, paddingLeft);
   paddingRight && node.setPadding(Edge.Right, paddingRight);
+
   // 处理边框
   const { borderAll, borderTop, borderBottom, borderRight, borderLeft } =
     border || {};
@@ -63,17 +66,20 @@ export function createLayoutTree(
   borderBottom && node.setBorder(Edge.Bottom, borderBottom.borderWidth);
   borderRight && node.setBorder(Edge.Right, borderRight.borderWidth);
   borderLeft && node.setBorder(Edge.Left, borderLeft.borderWidth);
+
   // 处理定位
   position &&
     node.setPositionType(
       position === "absolute" ? PositionType.Absolute : PositionType.Relative
     );
+
   // 处理外边距
   const { marginTop, marginRight, marginBottom, marginLeft } = margin || {};
   marginBottom && node.setMargin(Edge.Bottom, marginBottom);
   marginRight && node.setMargin(Edge.Right, marginRight);
   marginLeft && node.setMargin(Edge.Left, marginLeft);
   marginTop && node.setMargin(Edge.Top, marginTop);
+
   // 处理最大宽高
   maxWidth && node.setMaxWidth(maxWidth);
   maxHeight && node.setMaxHeight(maxHeight);
@@ -88,18 +94,60 @@ export function createLayoutTree(
   columnGap && node.setGap(Gutter.Column, columnGap);
   // 处理flex
   flexBasis && node.setFlexBasis(flexBasis);
-  flexDirection && node.setFlexDirection(flexDirection === 'row'? FlexDirection.Row:FlexDirection.Column);
+  flexDirection &&
+    node.setFlexDirection(
+      flexDirection === "row" ? FlexDirection.Row : FlexDirection.Column
+    );
   flexGrow && node.setFlexGrow(flexGrow);
   flexShrink && node.setFlexShrink(flexShrink);
   flexWrap && node.setFlexWrap(Wrap.Wrap);
   flex && node.setFlex(flex);
 
-  alignItems && node.setAlignItems(Align.Center);
+  switch(alignItems) {
+    case "flex-start":
+      node.setAlignItems(Align.FlexStart);
+      break;
+    case "flex-end":
+      node.setAlignItems(Align.FlexEnd);
+      break;
+    case "center":
+      node.setAlignItems(Align.Center);
+      break;
+    case "stretch":
+      node.setAlignItems(Align.Stretch);
+      break;
+    case "baseline":
+      node.setAlignItems(Align.Baseline);
+  }
+  switch(alignContent) {
+    case "flex-start":
+      node.setAlignContent(Align.FlexStart);
+      break;
+    case "flex-end":
+      node.setAlignContent(Align.FlexEnd);
+      break;
+    case "center":
+      node.setAlignContent(Align.Center);
+      break;
+    case "stretch":
+      node.setAlignContent(Align.Stretch);
+      break;
+    case "space-between":
+      node.setAlignContent(Align.SpaceBetween);
+      break;
+    case "space-around":
+      node.setAlignContent(Align.SpaceAround);
+      break;
+    case "space-evenly":
+      node.setAlignContent(Align.SpaceEvenly);
+      break;
+  }
   // 处理位置
   left && node.setPosition(Edge.Left, left);
   right && node.setPosition(Edge.Right, right);
   top && node.setPosition(Edge.Top, top);
   bottom && node.setPosition(Edge.Bottom, bottom);
+
   const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
     let item = children[i];
@@ -116,8 +164,8 @@ export function createLayoutTree(
           fontWeight: element.style?.fontWeight,
           lineHeight: element.style?.lineHeight,
           color: element.style?.color,
-          letterSpacing: element.style?.letterSpacing
-        }
+          letterSpacing: element.style?.letterSpacing,
+        },
       };
       childNode.setMeasureFunc((boxWidth) => {
         const { height, width, lines } = measureText(item, boxWidth, {
@@ -125,7 +173,7 @@ export function createLayoutTree(
           fontWeight: element.style?.fontWeight,
           lineClamp: element?.style?.lineClamp,
           letterSpacing: element.style?.letterSpacing,
-          lineHeight: element.style?.lineHeight
+          lineHeight: element.style?.lineHeight,
         });
         child.children = lines;
         return { height, width };
@@ -141,7 +189,7 @@ export function createLayoutTree(
   element.style = style;
 }
 
-export function layout(element: ElementType){
+export function layout(element: ElementType) {
   createLayoutTree(element);
   element.node?.calculateLayout(
     element?.style?.width,

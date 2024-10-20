@@ -1,11 +1,14 @@
 import { Node } from "yoga-layout";
-import { ColorStopType } from "./draw/rect";
 
 export type BorderType = {
   borderWidth: number;
   borderStyle: "solid" | "dashed";
   borderColor: string;
 };
+export type ColorStopType = {
+  color:string;
+  position: number;
+}
 
 export type FontWeightType =
   | "normal"
@@ -21,15 +24,14 @@ export type FontWeightType =
   | "700"
   | "800"
   | "900";
-export type TextAlignType = "left" | "right" | "center" | "justify";
+export type TextAlignType = "left" | "right" | "center";
 
 export type ElementType = {
   type: string;
   children?: (ElementType | string)[];
   style?: {
-    display?: "flex";
+    display?: "flex" | "none";
     position?: "relative" | "absolute";
-    antialias?: "default" | "none";
     margin?: {
       marginTop?: number;
       marginRight?: number;
@@ -82,14 +84,15 @@ export type ElementType = {
     flexGrow?: number;
     flexShrink?: number;
     flexBasis?: number;
-    alignItems?: "flex-start" | "flex-end" | "center" | "stretch";
+    alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
     alignContent?:
       | "flex-start"
       | "flex-end"
       | "center"
       | "stretch"
       | "space-between"
-      | "space-around";
+      | "space-around"
+      | "space-evenly"
     alignSelf?: "auto" | "flex-start" | "flex-end" | "center" | "stretch";
     justifyContent?:
       | "flex-start"

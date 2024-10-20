@@ -1,7 +1,7 @@
 import { CanvasRenderingContext2D, createCanvas } from "canvas";
-import { FontWeightType, TextAlignType, TextMeasureStyleType } from "../type";
+import { ElementType, FontWeightType, TextAlignType, TextMeasureStyleType } from "../type";
 const MAX_LINE_CLAMP = 999;
-type DrawParagraphParamsType = {
+type DrawTextParamsType = {
   left: number;
   top: number;
   lines: string[];
@@ -20,9 +20,9 @@ type DrawParagraphParamsType = {
   opacity?: number;
 };
 
-export const drawParagraph = (
+export const drawText = (
   ctx: CanvasRenderingContext2D,
-  options: DrawParagraphParamsType
+  options: DrawTextParamsType
 ) => {
   const {
     left,
@@ -42,7 +42,7 @@ export const drawParagraph = (
   if (color) {
     ctx.fillStyle = color;
   }
-  ctx.textAlign = textAlign as any;
+  ctx.textAlign = textAlign;
   ctx.globalAlpha = opacity;
   if (shadow) {
     ctx.shadowColor = shadow.color;
