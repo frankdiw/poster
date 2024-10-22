@@ -150,7 +150,7 @@ export function createLayoutTree(
 
   const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
-    let item = children[i];
+    let item = children[i];  
     if (typeof item !== "string") {
       createLayoutTree(item, node, i);
     } else {

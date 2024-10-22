@@ -48,7 +48,7 @@ export async function draw(
       borderRadius,
       boxShadow,
       opacity,
-      background: background,
+      background,
     });
     const children = element?.children || [];
     for (let item of children) {

@@ -8,7 +8,7 @@
   "version": "1.0.0",
   "main": "canvas.js",
   "scripts": {
-    "start": "tsx ./index.ts"
+    "start": "tsx ./test.ts"
   },
   "type": "module",
   "author": "",
