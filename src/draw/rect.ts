@@ -1,12 +1,17 @@
-import { CanvasRenderingContext2D, loadImage } from 'canvas';
-import { BorderType, ColorStopType } from '../type';
+import { type CanvasRenderingContext2D, loadImage } from 'canvas';
+import type { BorderType, ColorStopType } from '../type';
 import { calculateGradientCoordinate } from '../libs/line-gradient';
 type DrawRectOptionsType = {
   left: number;
   top: number;
   width: number;
   height: number;
-  borderRadius?: { topLeft?: number; topRight?: number; bottomRight?: number; bottomLeft?: number };
+  borderRadius?: {
+    topLeft?: number;
+    topRight?: number;
+    bottomRight?: number;
+    bottomLeft?: number;
+  };
   background?: {
     color?: string;
     image?: string;
@@ -48,8 +53,18 @@ export async function drawRect(
   ctx.beginPath();
   // 绘制矩形
   if (borderRadius) {
-    const { topLeft = 0, topRight = 0, bottomLeft = 0, bottomRight = 0 } = borderRadius;
-    ctx.roundRect(left, top, width, height, [topLeft, topRight, bottomRight, bottomLeft]);
+    const {
+      topLeft = 0,
+      topRight = 0,
+      bottomLeft = 0,
+      bottomRight = 0,
+    } = borderRadius;
+    ctx.roundRect(left, top, width, height, [
+      topLeft,
+      topRight,
+      bottomRight,
+      bottomLeft,
+    ]);
   } else {
     ctx.rect(left, top, width, height);
   }
@@ -80,10 +95,16 @@ export async function drawRect(
     }
     if (background.linearGradient) {
       const { direction, colorStops } = background.linearGradient;
-      const { x0, y0, x1, y1 } = calculateGradientCoordinate({ left, top, width, height, direction });
+      const { x0, y0, x1, y1 } = calculateGradientCoordinate({
+        left,
+        top,
+        width,
+        height,
+        direction,
+      });
       const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-      for(let {color, position} of colorStops) {
-        gradient.addColorStop(position,color);
+      for (let { color, position } of colorStops) {
+        gradient.addColorStop(position, color);
       }
       ctx.fillStyle = gradient;
       ctx.fill();
@@ -92,20 +113,27 @@ export async function drawRect(
   // 处理边框
   if (border) {
     ctx.save();
-    const { borderAll, borderBottom, borderTop, borderLeft, borderRight } = border;
+    const { borderAll, borderBottom, borderTop, borderLeft, borderRight } =
+      border;
     if (borderAll) {
       const { borderWidth, borderColor, borderStyle } = borderAll;
       ctx.strokeStyle = borderColor;
       ctx.lineWidth = borderWidth;
       ctx.beginPath();
       ctx.setLineDash(borderStyle === 'dashed' ? [4, 4] : []);
-      const { topLeft = 0, topRight = 0, bottomLeft = 0, bottomRight = 0 } = borderRadius || {};
-      ctx.roundRect(left + borderWidth / 2, top + borderWidth / 2, width - borderWidth, height - borderWidth, [
-        topLeft,
-        topRight,
-        bottomRight,
-        bottomLeft,
-      ]);
+      const {
+        topLeft = 0,
+        topRight = 0,
+        bottomLeft = 0,
+        bottomRight = 0,
+      } = borderRadius || {};
+      ctx.roundRect(
+        left + borderWidth / 2,
+        top + borderWidth / 2,
+        width - borderWidth,
+        height - borderWidth,
+        [topLeft, topRight, bottomRight, bottomLeft]
+      );
       ctx.closePath();
       ctx.stroke();
     }
@@ -115,7 +143,9 @@ export async function drawRect(
         const { borderColor, borderStyle, borderWidth } = borderTop;
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = borderWidth;
-        ctx.setLineDash(borderStyle === 'dashed' ? [borderWidth, borderWidth] : []);
+        ctx.setLineDash(
+          borderStyle === 'dashed' ? [borderWidth, borderWidth] : []
+        );
         ctx.beginPath();
         ctx.moveTo(left + borderWidth / 2, top + borderWidth / 2);
         ctx.lineTo(left + width - borderWidth / 2, top + borderWidth / 2);
@@ -126,10 +156,15 @@ export async function drawRect(
         const { borderColor, borderStyle, borderWidth } = borderBottom;
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = borderWidth;
-        ctx.setLineDash(borderStyle === 'dashed' ? [borderWidth, borderWidth] : []);
+        ctx.setLineDash(
+          borderStyle === 'dashed' ? [borderWidth, borderWidth] : []
+        );
         ctx.beginPath();
         ctx.moveTo(left + borderWidth / 2, top + height - borderWidth / 2);
-        ctx.lineTo(left + width - borderWidth / 2, top + height - borderWidth / 2);
+        ctx.lineTo(
+          left + width - borderWidth / 2,
+          top + height - borderWidth / 2
+        );
         ctx.closePath();
         ctx.stroke();
       }
@@ -137,7 +172,9 @@ export async function drawRect(
         const { borderColor, borderStyle, borderWidth } = borderLeft;
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = borderWidth;
-        ctx.setLineDash(borderStyle === 'dashed' ? [borderWidth, borderWidth] : []);
+        ctx.setLineDash(
+          borderStyle === 'dashed' ? [borderWidth, borderWidth] : []
+        );
         ctx.beginPath();
         ctx.moveTo(left + borderWidth / 2, top + borderWidth / 2);
         ctx.lineTo(left + borderWidth / 2, top + height - borderWidth / 2);
@@ -148,7 +185,9 @@ export async function drawRect(
         const { borderColor, borderStyle, borderWidth } = borderRight;
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = borderWidth;
-        ctx.setLineDash(borderStyle === 'dashed' ? [borderWidth, borderWidth] : []);
+        ctx.setLineDash(
+          borderStyle === 'dashed' ? [borderWidth, borderWidth] : []
+        );
         ctx.beginPath();
         ctx.moveTo(left + width - borderWidth / 2, top + borderWidth / 2);
         ctx.lineTo(left + width - borderWidth / 2, top + height);

@@ -4,19 +4,28 @@
     "canvas": "^3.0.0-rc2",
     "yoga-layout": "^3.0.4"
   },
-  "name": "poster",
-  "version": "1.0.0",
-  "main": "canvas.js",
+  "name": "@frankdiw/poster",
+  "version": "0.0.1",
+  "main": "dist/index.mjs",
   "scripts": {
-    "start": "tsx ./test.ts"
+    "dev": "tsx ./test.ts",
+    "build": "bunchee"
   },
+  "types": "dist/index.d.ts",
   "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/node": "^20.10.8",
+    "bunchee": "^6.0.0",
     "tsx": "^4.11.0",
-    "typescript": "^5.3.3",
-    "@types/node": "^20.10.8"
+    "typescript": "^5.3.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   }
 }

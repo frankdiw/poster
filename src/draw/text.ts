@@ -1,24 +1,6 @@
-import { CanvasRenderingContext2D, createCanvas } from "canvas";
-import { ElementType, FontWeightType, TextAlignType, TextMeasureStyleType } from "../type";
+import { CanvasRenderingContext2D, createCanvas } from 'canvas';
+import type { DrawTextParamsType, TextMeasureStyleType } from '../type';
 const MAX_LINE_CLAMP = 999;
-type DrawTextParamsType = {
-  left: number;
-  top: number;
-  lines: string[];
-  color?: string;
-  fontSize?: number;
-  fontWeight?: FontWeightType;
-  shadow?: {
-    blur: number;
-    color: string;
-    offsetX: number;
-    offsetY: number;
-  };
-  lineHeight?: number;
-  width: number;
-  textAlign?: TextAlignType;
-  opacity?: number;
-};
 
 export const drawText = (
   ctx: CanvasRenderingContext2D,
@@ -29,10 +11,10 @@ export const drawText = (
     top,
     width,
     lines,
-    color = "#000",
+    color = '#000',
     fontSize = 12,
-    fontWeight = "normal",
-    textAlign = "left",
+    fontWeight = 'normal',
+    textAlign = 'left',
     lineHeight = fontSize * 1.5,
     shadow,
     opacity = 1,
@@ -50,7 +32,7 @@ export const drawText = (
     ctx.shadowOffsetX = shadow.offsetX;
     ctx.shadowOffsetY = shadow.offsetY;
   }
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = 'middle';
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     ctx.fillText(line, left, top + i * lineHeight + lineHeight / 2, width);
@@ -64,18 +46,18 @@ export function measureText(
   measureStyle: TextMeasureStyleType
 ) {
   const canvas = createCanvas(100, 100);
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   const {
     fontSize = 16,
-    fontStyle = "normal",
-    fontWeight = "400",
+    fontStyle = 'normal',
+    fontWeight = '400',
     lineHeight = fontSize * 1.5,
     lineClamp = MAX_LINE_CLAMP,
     letterSpacing = 0,
   } = measureStyle;
-  ctx.font = [fontStyle, fontWeight, fontSize + 'px', "Microsoft YaHei"]
+  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'Microsoft YaHei']
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
   let lines = [];
   let currentIndex = 1;
   let startIndex = 0;
@@ -92,13 +74,13 @@ export function measureText(
         let lastLineText: string = lines[lines.length - 1];
         while (
           width <
-          ctx.measureText(lastLineText + "...").width +
+          ctx.measureText(lastLineText + '...').width +
             (lastLineText.length - 1) * letterSpacing
         ) {
           lastLineText = lastLineText.slice(0, lastLineText.length - 1);
           currentIndex--;
         }
-        lines[lines.length - 1] = lastLineText + "...";
+        lines[lines.length - 1] = lastLineText + '...';
         startIndex = currentIndex;
         break;
       }

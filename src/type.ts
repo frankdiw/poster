@@ -1,37 +1,37 @@
-import { Node } from "yoga-layout";
+import { Node } from 'yoga-layout';
 
 export type BorderType = {
   borderWidth: number;
-  borderStyle: "solid" | "dashed";
+  borderStyle: 'solid' | 'dashed';
   borderColor: string;
 };
 export type ColorStopType = {
-  color:string;
+  color: string;
   position: number;
-}
+};
 
 export type FontWeightType =
-  | "normal"
-  | "bold"
-  | "bolder"
-  | "lighter"
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900";
-export type TextAlignType = "left" | "right" | "center";
+  | 'normal'
+  | 'bold'
+  | 'bolder'
+  | 'lighter'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
+export type TextAlignType = 'left' | 'right' | 'center';
 
 export type ElementType = {
   type: string;
   children?: (ElementType | string)[];
   style?: {
-    display?: "flex" | "none";
-    position?: "relative" | "absolute";
+    display?: 'flex' | 'none';
+    position?: 'relative' | 'absolute';
     margin?: {
       marginTop?: number;
       marginRight?: number;
@@ -79,28 +79,28 @@ export type ElementType = {
     minHeight?: number;
     minWidth?: number;
     aspectRatio?: number;
-    flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
-    flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
+    flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
+    flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
     flexGrow?: number;
     flexShrink?: number;
     flexBasis?: number;
-    alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+    alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
     alignContent?:
-      | "flex-start"
-      | "flex-end"
-      | "center"
-      | "stretch"
-      | "space-between"
-      | "space-around"
-      | "space-evenly"
-    alignSelf?: "auto" | "flex-start" | "flex-end" | "center" | "stretch";
+      | 'flex-start'
+      | 'flex-end'
+      | 'center'
+      | 'stretch'
+      | 'space-between'
+      | 'space-around'
+      | 'space-evenly';
+    alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch';
     justifyContent?:
-      | "flex-start"
-      | "flex-end"
-      | "center"
-      | "space-between"
-      | "space-around"
-      | "space-evenly";
+      | 'flex-start'
+      | 'flex-end'
+      | 'center'
+      | 'space-between'
+      | 'space-around'
+      | 'space-evenly';
     flex?: number;
     gap?: {
       row?: number;
@@ -110,13 +110,13 @@ export type ElementType = {
     fontSize?: number;
     lineHeight?: number;
     letterSpacing?: number;
-    textOverflow?: "clip" | "ellipsis";
+    textOverflow?: 'clip' | 'ellipsis';
     lineClamp?: number;
-    fontFamily?: string;
+    // fontFamily?: string; TODO
     fontWeight?: FontWeightType;
-    fontStyle?: "normal" | "italic" | "oblique";
+    fontStyle?: 'normal' | 'italic' | 'oblique';
     color?: string;
-    textDecoration?: "none" | "underline" | "line-through";
+    // textDecoration?: "none" | "underline" | "line-through"; TODO
     textShadow?: {
       blur: number;
       color: string;
@@ -166,30 +166,30 @@ export type DrawElementType = {
     offsetX: number;
     offsetY: number;
   };
-  textAlign?: "left" | "right" | "center" | "justify";
+  textAlign?: 'left' | 'right' | 'center' | 'justify';
   fontSize?: number;
   lineHeight?: number;
   letterSpacing?: number;
-  textOverflow?: "clip" | "ellipsis";
+  textOverflow?: 'clip' | 'ellipsis';
   lineClamp?: number;
   fontFamily?: string;
   fontWeight?:
-    | "normal"
-    | "bold"
-    | "bolder"
-    | "lighter"
-    | "100"
-    | "200"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "800"
-    | "900";
-  fontStyle?: "normal" | "italic" | "oblique";
+    | 'normal'
+    | 'bold'
+    | 'bolder'
+    | 'lighter'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
+  fontStyle?: 'normal' | 'italic' | 'oblique';
   color?: string;
-  textDecoration?: "none" | "underline" | "line-through";
+  textDecoration?: 'none' | 'underline' | 'line-through';
   textShadow?: {
     blur: number;
     color: string;
@@ -203,49 +203,46 @@ export type TextMeasureStyleType = {
   fontSize?: number;
   lineHeight?: number;
   letterSpacing?: number;
-  fontStyle?: "normal" | "italic" | "oblique";
+  fontStyle?: 'normal' | 'italic' | 'oblique';
   fontWeight?:
-    | "normal"
-    | "bold"
-    | "bolder"
-    | "lighter"
-    | "100"
-    | "200"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "800"
-    | "900";
+    | 'normal'
+    | 'bold'
+    | 'bolder'
+    | 'lighter'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
   lineClamp?: number;
 };
 
-export type TextDrawStyleType = {
-  fontSize?: number;
-  lineHeight?: number;
-  letterSpacing?: number;
-  fontFamily?: string;
-  fontStyle?: "normal" | "italic" | "oblique";
-  fontWeight?:
-    | "normal"
-    | "bold"
-    | "bolder"
-    | "lighter"
-    | "100"
-    | "200"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "800"
-    | "900";
+export type DrawTextParamsType = {
+  left: number;
+  top: number;
+  lines: string[];
   color?: string;
-  textShadow?: {
+  fontSize?: number;
+  fontWeight?: FontWeightType;
+  shadow?: {
     blur: number;
     color: string;
     offsetX: number;
     offsetY: number;
   };
+  lineHeight?: number;
+  width: number;
+  textAlign?: TextAlignType;
+  opacity?: number;
+};
+
+export type PosterParamsType = {
+  jsx: string;
+  props?: Record<string, any>;
+  mimeType?: 'image/jpeg' | 'image/png';
+  returnType: 'buffer' | 'base64';
 };

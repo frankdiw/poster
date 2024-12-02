@@ -2,13 +2,7 @@ import { createCanvas } from 'canvas';
 import { layout } from './libs/layout';
 import { parse } from './libs/parse';
 import { draw } from './draw';
-export type PosterParamsType = {
-  jsx: string;
-  props?: Record<string, any>;
-  mimeType?: 'image/jpeg' | 'image/png';
-  returnType: 'buffer' | 'base64';
-};
-
+import { PosterParamsType } from './type';
 export default async function poster({
   jsx,
   props,
@@ -33,3 +27,5 @@ export default async function poster({
     return canvas.toBuffer('image/jpeg');
   }
 }
+
+export * from './type';

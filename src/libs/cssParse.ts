@@ -1,6 +1,4 @@
-import { SUPPORT_STYLE_PROPERTIES } from "../constant";
-import { ColorStopType } from "../type";
-
+import type { ColorStopType } from '../type';
 
 export const isColor = (value: string) => {
   return ['#', 'rgb', 'hsl'].some((item) =>

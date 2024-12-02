@@ -1,4 +1,4 @@
-import { ElementType } from "../type";
+import type { ElementType } from '../type';
 import Yoga, {
   Align,
   Direction,
@@ -8,9 +8,9 @@ import Yoga, {
   Node,
   PositionType,
   Wrap,
-} from "yoga-layout";
-import { parseStyle } from "./cssParse";
-import { measureText } from "../draw/text";
+} from 'yoga-layout';
+import { parseStyle } from './cssParse';
+import { measureText } from '../draw/text';
 
 export function createLayoutTree(
   element: ElementType,
@@ -70,7 +70,7 @@ export function createLayoutTree(
   // 处理定位
   position &&
     node.setPositionType(
-      position === "absolute" ? PositionType.Absolute : PositionType.Relative
+      position === 'absolute' ? PositionType.Absolute : PositionType.Relative
     );
 
   // 处理外边距
@@ -96,49 +96,49 @@ export function createLayoutTree(
   flexBasis && node.setFlexBasis(flexBasis);
   flexDirection &&
     node.setFlexDirection(
-      flexDirection === "row" ? FlexDirection.Row : FlexDirection.Column
+      flexDirection === 'row' ? FlexDirection.Row : FlexDirection.Column
     );
   flexGrow && node.setFlexGrow(flexGrow);
   flexShrink && node.setFlexShrink(flexShrink);
   flexWrap && node.setFlexWrap(Wrap.Wrap);
   flex && node.setFlex(flex);
 
-  switch(alignItems) {
-    case "flex-start":
+  switch (alignItems) {
+    case 'flex-start':
       node.setAlignItems(Align.FlexStart);
       break;
-    case "flex-end":
+    case 'flex-end':
       node.setAlignItems(Align.FlexEnd);
       break;
-    case "center":
+    case 'center':
       node.setAlignItems(Align.Center);
       break;
-    case "stretch":
+    case 'stretch':
       node.setAlignItems(Align.Stretch);
       break;
-    case "baseline":
+    case 'baseline':
       node.setAlignItems(Align.Baseline);
   }
-  switch(alignContent) {
-    case "flex-start":
+  switch (alignContent) {
+    case 'flex-start':
       node.setAlignContent(Align.FlexStart);
       break;
-    case "flex-end":
+    case 'flex-end':
       node.setAlignContent(Align.FlexEnd);
       break;
-    case "center":
+    case 'center':
       node.setAlignContent(Align.Center);
       break;
-    case "stretch":
+    case 'stretch':
       node.setAlignContent(Align.Stretch);
       break;
-    case "space-between":
+    case 'space-between':
       node.setAlignContent(Align.SpaceBetween);
       break;
-    case "space-around":
+    case 'space-around':
       node.setAlignContent(Align.SpaceAround);
       break;
-    case "space-evenly":
+    case 'space-evenly':
       node.setAlignContent(Align.SpaceEvenly);
       break;
   }
@@ -150,15 +150,15 @@ export function createLayoutTree(
 
   const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
-    let item = children[i];  
-    if (typeof item !== "string") {
+    let item = children[i];
+    if (typeof item !== 'string') {
       createLayoutTree(item, node, i);
     } else {
       // 处理文本
       const childNode = Yoga.Node.create();
       const child: ElementType = {
         node: childNode,
-        type: "text",
+        type: 'text',
         style: {
           fontSize: element.style?.fontSize,
           fontWeight: element.style?.fontWeight,
