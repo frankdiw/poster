@@ -151,9 +151,10 @@ export function createLayoutTree(
   const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
     let item = children[i];
-    if (typeof item !== 'string') {
+    if (typeof item === 'object' && item !== null) {
       createLayoutTree(item, node, i);
     } else {
+      let str = String(item);
       // 处理文本
       const childNode = Yoga.Node.create();
       const child: ElementType = {
@@ -168,7 +169,7 @@ export function createLayoutTree(
         },
       };
       childNode.setMeasureFunc((boxWidth) => {
-        const { height, width, lines } = measureText(item, boxWidth, {
+        const { height, width, lines } = measureText(str, boxWidth, {
           fontSize: element.style?.fontSize,
           fontWeight: element.style?.fontWeight,
           lineClamp: element?.style?.lineClamp,
