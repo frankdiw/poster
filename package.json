@@ -8,8 +8,7 @@
   "version": "0.0.3",
   "main": "dist/index.mjs",
   "scripts": {
-    "dev": "tsx ./test.ts",
-    "build": "bunchee"
+    "build": "bunchee && cp -r ./src/fonts ./dist/"
   },
   "types": "dist/index.d.ts",
   "type": "module",

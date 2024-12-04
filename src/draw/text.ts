@@ -20,7 +20,7 @@ export const drawText = (
     opacity = 1,
   } = options;
   ctx.save();
-  ctx.font = `${fontWeight} ${fontSize}px "Microsoft YaHei"`;
+  ctx.font = `${fontWeight} ${fontSize}px "PingFang SC"`;
   if (color) {
     ctx.fillStyle = color;
   }
@@ -55,7 +55,7 @@ export function measureText(
     lineClamp = MAX_LINE_CLAMP,
     letterSpacing = 0,
   } = measureStyle;
-  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'Microsoft YaHei']
+  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'PingFang SC']
     .filter(Boolean)
     .join(' ');
   let lines = [];
