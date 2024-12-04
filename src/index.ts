@@ -4,9 +4,12 @@ import { parse } from './libs/parse';
 import { draw } from './draw';
 import { PosterParamsType } from './type';
 import path from 'path';
-registerFont(path.resolve(import.meta.dirname, './fonts/PingFang.ttc'), {
-  family: 'PingFang SC',
-});
+registerFont(
+  path.resolve(import.meta.dirname || __dirname, './fonts/PingFang.ttc'),
+  {
+    family: 'PingFang SC',
+  }
+);
 export default async function poster({
   jsx,
   props,

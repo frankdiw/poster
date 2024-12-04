@@ -5,9 +5,10 @@
     "yoga-layout": "^3.0.4"
   },
   "name": "@frankdiw/poster",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.mjs",
   "scripts": {
+    "test":"tsx ./test.ts",
     "build": "bunchee && cp -r ./src/fonts ./dist/"
   },
   "types": "dist/index.d.ts",
