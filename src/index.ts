@@ -1,15 +1,15 @@
-import { createCanvas, registerFont } from 'canvas';
+import { createCanvas } from 'canvas';
 import { layout } from './libs/layout';
 import { parse } from './libs/parse';
 import { draw } from './draw';
 import { PosterParamsType } from './type';
-import path from 'path';
-registerFont(
-  path.resolve(import.meta.dirname || __dirname, './fonts/PingFang.ttc'),
-  {
-    family: 'PingFang SC',
-  }
-);
+// import path from 'path';
+// registerFont(
+//   path.resolve(import.meta.dirname || __dirname, './fonts/PingFang.ttc'),
+//   {
+//     family: 'PingFang SC',
+//   }
+// );
 export default async function poster({
   jsx,
   props,
