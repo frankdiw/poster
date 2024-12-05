@@ -2,14 +2,16 @@
   "dependencies": {
     "@swc/core": "^1.5.24",
     "canvas": "^3.0.0-rc2",
+    "cross-dirname": "^0.1.0",
     "yoga-layout": "^3.0.4"
   },
   "name": "@frankdiw/poster",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.mjs",
   "scripts": {
-    "test":"tsx ./test.ts",
-    "build": "bunchee && cp -r ./src/fonts ./dist/"
+    "test": "tsx ./test.ts",
+    "build": "bunchee && cp -r ./src/fonts ./dist/",
+    "prepublish": "npm run build"
   },
   "types": "dist/index.d.ts",
   "type": "module",
