@@ -3,7 +3,6 @@ import { layout } from './libs/layout';
 import { parse } from './libs/parse';
 import { draw } from './draw';
 import { PosterParamsType } from './type';
-import { getDirname } from 'cross-dirname';
 // import path from 'path';
 // registerFont(path.resolve(getDirname(), './fonts/PingFang.ttc'), {
 //   family: 'PingFang SC',
