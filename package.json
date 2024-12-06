@@ -6,7 +6,7 @@
     "yoga-layout": "^3.0.4"
   },
   "name": "@frankdiw/poster",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/index.mjs",
   "scripts": {
     "build": "bunchee && cp -r ./src/fonts ./dist/",
