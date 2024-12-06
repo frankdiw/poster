@@ -148,7 +148,10 @@ export function createLayoutTree(
   top && node.setPosition(Edge.Top, top);
   bottom && node.setPosition(Edge.Bottom, bottom);
 
-  const children = element?.children?.filter(item=> typeof item !== 'boolean') || [];
+  element.children = element?.children?.filter(
+    (item) => typeof item !== 'boolean'
+  );
+  const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
     let item = children[i];
     if (typeof item === 'object' && item !== null) {

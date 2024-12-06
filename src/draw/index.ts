@@ -1,7 +1,7 @@
-import { CanvasRenderingContext2D } from "canvas";
-import { ElementType } from "../type";
-import { drawText } from "./text";
-import { drawRect } from "./rect";
+import { CanvasRenderingContext2D } from 'canvas';
+import { ElementType } from '../type';
+import { drawText } from './text';
+import { drawRect } from './rect';
 
 export async function draw(
   ctx: CanvasRenderingContext2D,
@@ -24,7 +24,7 @@ export async function draw(
   const currentLeft = left + parentLeft;
   const currentTop = top + parentTop;
 
-  if (element?.type === "text") {
+  if (element?.type === 'text') {
     drawText(ctx, {
       left: currentLeft,
       top: currentTop,
@@ -50,9 +50,10 @@ export async function draw(
       opacity,
       background,
     });
-    const children = element?.children || [];
+    const children =
+      element?.children?.filter((item) => typeof item !== 'boolean') || [];
     for (let item of children) {
-      if (typeof item !== "string") {
+      if (typeof item !== 'string') {
         await draw(ctx, item);
       }
     }
