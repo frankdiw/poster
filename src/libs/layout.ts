@@ -5,6 +5,7 @@ import Yoga, {
   Edge,
   FlexDirection,
   Gutter,
+  Justify,
   Node,
   PositionType,
   Wrap,
@@ -17,10 +18,10 @@ export function createLayoutTree(
   parent?: Node,
   index?: number
 ) {
-  const node = Yoga.Node.create();
-  node.setAlwaysFormsContainingBlock(true);
-  const style = parseStyle(element.style);
-  // 处理宽高
+  const layoutNode = Yoga.Node.create();
+  layoutNode.setAlwaysFormsContainingBlock(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const style:any = parseStyle(element.style);
   const {
     width,
     height,
@@ -46,122 +47,165 @@ export function createLayoutTree(
     flex,
     alignItems,
     alignContent,
+    justifyContent,
   } = style;
-  width && node.setWidth(width);
-  height && node.setHeight(height);
+  // 处理宽高
+  layoutNode.setWidth(width);
+  layoutNode.setHeight(height);
   const { paddingTop, paddingBottom, paddingLeft, paddingRight } =
     padding || {};
 
   // 处理内边距
-  paddingTop && node.setPadding(Edge.Top, paddingTop);
-  paddingBottom && node.setPadding(Edge.Bottom, paddingBottom);
-  paddingLeft && node.setPadding(Edge.Left, paddingLeft);
-  paddingRight && node.setPadding(Edge.Right, paddingRight);
+  layoutNode.setPadding(Edge.Top, paddingTop);
+  layoutNode.setPadding(Edge.Bottom, paddingBottom);
+  layoutNode.setPadding(Edge.Left, paddingLeft);
+  layoutNode.setPadding(Edge.Right, paddingRight);
 
   // 处理边框
   const { borderAll, borderTop, borderBottom, borderRight, borderLeft } =
     border || {};
-  borderAll && node.setBorder(Edge.All, borderAll.borderWidth);
-  borderTop && node.setBorder(Edge.Top, borderTop.borderWidth);
-  borderBottom && node.setBorder(Edge.Bottom, borderBottom.borderWidth);
-  borderRight && node.setBorder(Edge.Right, borderRight.borderWidth);
-  borderLeft && node.setBorder(Edge.Left, borderLeft.borderWidth);
+  layoutNode.setBorder(Edge.All, borderAll?.borderWidth);
+  layoutNode.setBorder(Edge.Top, borderTop?.borderWidth);
+  layoutNode.setBorder(Edge.Bottom, borderBottom?.borderWidth);
+  layoutNode.setBorder(Edge.Right, borderRight?.borderWidth);
+  layoutNode.setBorder(Edge.Left, borderLeft?.borderWidth);
 
   // 处理定位
-  position &&
-    node.setPositionType(
-      position === 'absolute' ? PositionType.Absolute : PositionType.Relative
-    );
+  layoutNode.setPositionType(
+    position === 'absolute' ? PositionType.Absolute : PositionType.Relative
+  );
 
   // 处理外边距
   const { marginTop, marginRight, marginBottom, marginLeft } = margin || {};
-  marginBottom && node.setMargin(Edge.Bottom, marginBottom);
-  marginRight && node.setMargin(Edge.Right, marginRight);
-  marginLeft && node.setMargin(Edge.Left, marginLeft);
-  marginTop && node.setMargin(Edge.Top, marginTop);
+  layoutNode.setMargin(Edge.Bottom, marginBottom);
+ layoutNode.setMargin(Edge.Right, marginRight);
+  layoutNode.setMargin(Edge.Left, marginLeft);
+  layoutNode.setMargin(Edge.Top, marginTop);
 
   // 处理最大宽高
-  maxWidth && node.setMaxWidth(maxWidth);
-  maxHeight && node.setMaxHeight(maxHeight);
+  layoutNode.setMaxWidth(maxWidth);
+  layoutNode.setMaxHeight(maxHeight);
   // 处理最小宽高
-  minWidth && node.setMinWidth(minWidth);
-  minHeight && node.setMinHeight(minHeight);
+  layoutNode.setMinWidth(minWidth);
+  layoutNode.setMinHeight(minHeight);
   // 处理宽高比
-  aspectRatio && node.setAspectRatio(aspectRatio);
+  layoutNode.setAspectRatio(aspectRatio);
   // 处理gap
   const { row: rowGap, column: columnGap } = gap || {};
-  rowGap && node.setGap(Gutter.Row, rowGap);
-  columnGap && node.setGap(Gutter.Column, columnGap);
+  layoutNode.setGap(Gutter.Row, rowGap);
+  layoutNode.setGap(Gutter.Column, columnGap);
   // 处理flex
-  flexBasis && node.setFlexBasis(flexBasis);
-  flexDirection &&
-    node.setFlexDirection(
-      flexDirection === 'row' ? FlexDirection.Row : FlexDirection.Column
-    );
-  flexGrow && node.setFlexGrow(flexGrow);
-  flexShrink && node.setFlexShrink(flexShrink);
-  flexWrap && node.setFlexWrap(Wrap.Wrap);
-  flex && node.setFlex(flex);
+  layoutNode.setFlexBasis(flexBasis);
+  layoutNode.setFlexGrow(flexGrow);
+  layoutNode.setFlexShrink(flexShrink);
+  layoutNode.setFlex(flex);
+
+  switch (flexWrap) {
+    case 'nowrap':
+      layoutNode.setFlexWrap(Wrap.NoWrap);
+      break;
+    case 'wrap':
+      layoutNode.setFlexWrap(Wrap.Wrap);
+      break;
+    case 'wrap-reverse':
+      layoutNode.setFlexWrap(Wrap.WrapReverse);
+      break;
+  }
+
+  switch (flexDirection) {
+    case 'row':
+      layoutNode.setFlexDirection(FlexDirection.Row);
+      break;
+    case 'column':
+      layoutNode.setFlexDirection(FlexDirection.Column);
+      break;
+    case 'row-reverse':
+      layoutNode.setFlexDirection(FlexDirection.RowReverse);
+      break;
+    case 'column-reverse':
+      layoutNode.setFlexDirection(FlexDirection.ColumnReverse);
+  }
 
   switch (alignItems) {
     case 'flex-start':
-      node.setAlignItems(Align.FlexStart);
+      layoutNode.setAlignItems(Align.FlexStart);
       break;
     case 'flex-end':
-      node.setAlignItems(Align.FlexEnd);
+      layoutNode.setAlignItems(Align.FlexEnd);
       break;
     case 'center':
-      node.setAlignItems(Align.Center);
+      layoutNode.setAlignItems(Align.Center);
       break;
     case 'stretch':
-      node.setAlignItems(Align.Stretch);
+      layoutNode.setAlignItems(Align.Stretch);
       break;
     case 'baseline':
-      node.setAlignItems(Align.Baseline);
+      layoutNode.setAlignItems(Align.Baseline);
   }
   switch (alignContent) {
     case 'flex-start':
-      node.setAlignContent(Align.FlexStart);
+      layoutNode.setAlignContent(Align.FlexStart);
       break;
     case 'flex-end':
-      node.setAlignContent(Align.FlexEnd);
+      layoutNode.setAlignContent(Align.FlexEnd);
       break;
     case 'center':
-      node.setAlignContent(Align.Center);
+      layoutNode.setAlignContent(Align.Center);
       break;
     case 'stretch':
-      node.setAlignContent(Align.Stretch);
+      layoutNode.setAlignContent(Align.Stretch);
       break;
     case 'space-between':
-      node.setAlignContent(Align.SpaceBetween);
+      layoutNode.setAlignContent(Align.SpaceBetween);
       break;
     case 'space-around':
-      node.setAlignContent(Align.SpaceAround);
+      layoutNode.setAlignContent(Align.SpaceAround);
       break;
     case 'space-evenly':
-      node.setAlignContent(Align.SpaceEvenly);
+      layoutNode.setAlignContent(Align.SpaceEvenly);
+      break;
+  }
+
+  switch (justifyContent) {
+    case 'flex-start':
+      layoutNode.setJustifyContent(Justify.FlexStart);
+      break;
+    case 'flex-end':
+      layoutNode.setJustifyContent(Justify.FlexEnd);
+      break;
+    case 'center':
+      layoutNode.setJustifyContent(Justify.Center);
+      break;
+    case 'space-between':
+      layoutNode.setJustifyContent(Justify.SpaceBetween);
+      break;
+    case 'space-around':
+      layoutNode.setJustifyContent(Justify.SpaceAround);
+      break;
+    case 'space-evenly':
+      layoutNode.setJustifyContent(Justify.SpaceEvenly);
       break;
   }
   // 处理位置
-  left && node.setPosition(Edge.Left, left);
-  right && node.setPosition(Edge.Right, right);
-  top && node.setPosition(Edge.Top, top);
-  bottom && node.setPosition(Edge.Bottom, bottom);
+  layoutNode.setPosition(Edge.Left, left);
+  layoutNode.setPosition(Edge.Right, right);
+  layoutNode.setPosition(Edge.Top, top);
+  layoutNode.setPosition(Edge.Bottom, bottom);
 
   element.children = element?.children?.filter(
     (item) => typeof item !== 'boolean'
   );
   const children = element?.children || [];
   for (let i = 0; i < children.length; i++) {
-    let item = children[i];
-    if (typeof item === 'object' && item !== null) {
-      createLayoutTree(item, node, i);
+    const item = children[i];
+    if (typeof item !== 'string') {
+      createLayoutTree(item, layoutNode, i);
     } else {
-      let str = String(item);
+      const str = item;
       // 处理文本
-      const childNode = Yoga.Node.create();
+      const childLayoutNode = Yoga.Node.create();
       const child: ElementType = {
-        node: childNode,
+        layoutNode: childLayoutNode,
         type: 'text',
         style: {
           fontSize: element.style?.fontSize,
@@ -171,7 +215,7 @@ export function createLayoutTree(
           letterSpacing: element.style?.letterSpacing,
         },
       };
-      childNode.setMeasureFunc((boxWidth) => {
+      childLayoutNode.setMeasureFunc((boxWidth) => {
         const { height, width, lines } = measureText(str, boxWidth, {
           fontSize: element.style?.fontSize,
           fontWeight: element.style?.fontWeight,
@@ -182,20 +226,20 @@ export function createLayoutTree(
         child.children = lines;
         return { height, width };
       });
-      node.insertChild(childNode, i);
+      layoutNode.insertChild(childLayoutNode, i);
       children[i] = child;
     }
   }
   if (parent && index !== void 0) {
-    parent.insertChild(node, index);
+    parent.insertChild(layoutNode, index);
   }
-  element.node = node;
+  element.layoutNode = layoutNode;
   element.style = style;
 }
 
 export function layout(element: ElementType) {
   createLayoutTree(element);
-  element.node?.calculateLayout(
+  element.layoutNode?.calculateLayout(
     element?.style?.width,
     element?.style?.height,
     Direction.LTR

@@ -12,7 +12,7 @@ export const drawText = (
     width,
     lines,
     color = '#000',
-    fontSize = 12,
+    fontSize = 16,
     fontWeight = 'normal',
     textAlign = 'left',
     lineHeight = fontSize * 1.5,
@@ -58,7 +58,7 @@ export function measureText(
   ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'PingFang SC']
     .filter(Boolean)
     .join(' ');
-  let lines = [];
+  const lines = [];
   let currentIndex = 1;
   let startIndex = 0;
   while (currentIndex < text.length) {

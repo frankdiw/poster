@@ -103,7 +103,7 @@ export async function drawRect(
         direction,
       });
       const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-      for (let { color, position } of colorStops) {
+      for (const { color, position } of colorStops) {
         gradient.addColorStop(position, color);
       }
       ctx.fillStyle = gradient;

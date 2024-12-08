@@ -69,11 +69,7 @@ export const parseBorder = (border: string) => {
 
 export const parseBackground = (background: string) => {
   // 处理背景颜色的情况
-  if (
-    ['#', 'rgb', 'hsl'].some((item) =>
-      background.toLowerCase().startsWith(item)
-    )
-  ) {
+  if (isColor(background)) {
     return {
       background: {
         color: background,
@@ -151,15 +147,15 @@ export const parseGap = (gap: string | number) => {
   return { row, column: column || row };
 };
 
-export const parseStyle = (style?: Record<string, any>) => {
+export const parseStyle = (style?: Record<string, unknown>) => {
   if (!style) {
     return {};
   }
-  for (let key in style) {
+  for (const key in style) {
     if (key === 'padding') {
       style = {
         ...style,
-        padding: parsePadding(style[key]),
+        padding: parsePadding(style[key] as string | number),
       };
     }
     if (
@@ -170,7 +166,7 @@ export const parseStyle = (style?: Record<string, any>) => {
       style = {
         ...style,
         padding: {
-          ...style.padding,
+          ...(style.padding as object),
           [key]: style[key],
         },
       };
@@ -178,7 +174,7 @@ export const parseStyle = (style?: Record<string, any>) => {
     if (key === 'margin') {
       style = {
         ...style,
-        margin: parseMargin(style[key]),
+        margin: parseMargin(style[key] as string | number),
       };
     }
     if (
@@ -187,7 +183,7 @@ export const parseStyle = (style?: Record<string, any>) => {
       style = {
         ...style,
         margin: {
-          ...style.margin,
+          ...(style.margin as object),
           [key]: style[key],
         },
       };
@@ -195,19 +191,19 @@ export const parseStyle = (style?: Record<string, any>) => {
     if (key === 'borderRadius') {
       style = {
         ...style,
-        borderRadius: parseBorderRadius(style[key]),
+        borderRadius: parseBorderRadius(style[key] as string | number),
       };
     }
     if (key === 'boxShadow') {
       style = {
         ...style,
-        boxShadow: parseShadow(style[key]),
+        boxShadow: parseShadow(style[key] as string),
       };
     }
     if (key === 'border') {
       style = {
         ...style,
-        border: { borderAll: parseBorder(style[key]) },
+        border: { borderAll: parseBorder(style[key] as string) },
       };
     }
     if (
@@ -216,21 +212,21 @@ export const parseStyle = (style?: Record<string, any>) => {
       style = {
         ...style,
         border: {
-          ...style.border,
-          [key]: parseBorder(style[key]),
+          ...(style.border as object),
+          [key]: parseBorder(style[key] as string),
         },
       };
     }
     if (key === 'background') {
       style = {
         ...style,
-        ...parseBackground(style[key]),
+        ...parseBackground(style[key] as string),
       };
     }
     if (key === 'gap') {
       style = {
         ...style,
-        gap: parseGap(style[key]),
+        gap: parseGap(style[key] as string | number),
       };
     }
   }
@@ -244,7 +240,7 @@ export function parseLinearGradient(cssGradient: string) {
   }
   const colorStops = [];
   let colorStop = '';
-  for (let char of gradient) {
+  for (const char of gradient) {
     if (colorStop.includes('(') && !colorStop.includes(')')) {
       colorStop += char;
     } else {
@@ -265,7 +261,9 @@ export function parseLinearGradient(cssGradient: string) {
   }
   const result: ColorStopType[] = [];
   for (let i = 0; i < colorStops.length; i++) {
-    let [color, position] = colorStops[i].split(' ').map((item) => item.trim());
+    const [color, position] = colorStops[i]
+      .split(' ')
+      .map((item) => item.trim());
     result.push({
       color,
       position: position

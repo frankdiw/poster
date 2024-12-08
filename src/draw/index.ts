@@ -12,8 +12,8 @@ export async function draw(
     top = 0,
     width = 0,
     height = 0,
-  } = element.node?.getComputedLayout() || {};
-  let parent = element.node?.getParent();
+  } = element.layoutNode?.getComputedLayout() || {};
+  let parent = element.layoutNode?.getParent();
   let parentLeft = 0,
     parentTop = 0;
   while (parent) {
@@ -50,9 +50,8 @@ export async function draw(
       opacity,
       background,
     });
-    const children =
-      element?.children?.filter((item) => typeof item !== 'boolean') || [];
-    for (let item of children) {
+    const children = element?.children || [];
+    for (const item of children) {
       if (typeof item !== 'string') {
         await draw(ctx, item);
       }

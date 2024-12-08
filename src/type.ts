@@ -128,7 +128,7 @@ export type ElementType = {
     right?: number;
     top?: number;
   };
-  node?: Node;
+  layoutNode?: Node;
 };
 
 export type DrawElementType = {
@@ -242,7 +242,7 @@ export type DrawTextParamsType = {
 
 export type PosterParamsType = {
   jsx: string;
-  props?: Record<string, any>;
+  props?: Record<string, unknown>;
   mimeType?: 'image/jpeg' | 'image/png';
   returnType: 'buffer' | 'base64';
 };
