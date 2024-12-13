@@ -6,22 +6,22 @@
     "yoga-layout": "^3.0.4"
   },
   "name": "@frankdiw/poster",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.mjs",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "bunchee && cp -r ./src/fonts ./dist/",
-    "prepublishOnly": "npm run build",
-    "test":"tsx ./test/test.ts",
+    "prepublishOnly": "npm run build && npm run lint",
+    "test": "tsx ./test/test.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "types": "dist/index.d.ts",
   "type": "module",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.16.0",
