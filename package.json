@@ -6,7 +6,7 @@
     "yoga-layout": "^3.0.4"
   },
   "name": "@frankdiw/poster",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "dist/index.mjs",
   "files": [
     "dist"

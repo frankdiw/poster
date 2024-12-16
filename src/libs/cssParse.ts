@@ -91,11 +91,11 @@ export const parseBackground = (background: string) => {
   // 处理背景图
   if (background.startsWith('url(')) {
     const image = background.slice(4, -1).replace(/"|'/g, '');
-    if (!image.startsWith('http')) {
+    if (!image.startsWith('http') && !image.startsWith('data:image')) {
       throw Error(`Invalid image: ${image}`);
     }
     return {
-      background: { image: background.slice(4, -1).replace(/"|'/g, '') },
+      background: { image },
     };
   }
 };
