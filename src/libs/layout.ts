@@ -21,7 +21,7 @@ export function createLayoutTree(
   const layoutNode = Yoga.Node.create();
   layoutNode.setAlwaysFormsContainingBlock(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const style:any = parseStyle(element.style);
+  const style: any = parseStyle(element.style);
   const {
     width,
     height,
@@ -78,7 +78,7 @@ export function createLayoutTree(
   // 处理外边距
   const { marginTop, marginRight, marginBottom, marginLeft } = margin || {};
   layoutNode.setMargin(Edge.Bottom, marginBottom);
- layoutNode.setMargin(Edge.Right, marginRight);
+  layoutNode.setMargin(Edge.Right, marginRight);
   layoutNode.setMargin(Edge.Left, marginLeft);
   layoutNode.setMargin(Edge.Top, marginTop);
 
@@ -165,7 +165,6 @@ export function createLayoutTree(
       layoutNode.setAlignContent(Align.SpaceEvenly);
       break;
   }
-
   switch (justifyContent) {
     case 'flex-start':
       layoutNode.setJustifyContent(Justify.FlexStart);
@@ -213,6 +212,11 @@ export function createLayoutTree(
           lineHeight: element.style?.lineHeight,
           color: element.style?.color,
           letterSpacing: element.style?.letterSpacing,
+          lineClamp: element?.style?.lineClamp,
+          textAlign: element.style?.textAlign,
+          textOverflow: element?.style?.textOverflow,
+          textShadow: element?.style?.textShadow,
+          opacity: element?.style?.opacity,
         },
       };
       childLayoutNode.setMeasureFunc((boxWidth) => {

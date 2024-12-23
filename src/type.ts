@@ -166,13 +166,13 @@ export type DrawElementType = {
     offsetX: number;
     offsetY: number;
   };
-  textAlign?: 'left' | 'right' | 'center' | 'justify';
+  textAlign?: 'left' | 'right' | 'center';
   fontSize?: number;
   lineHeight?: number;
   letterSpacing?: number;
   textOverflow?: 'clip' | 'ellipsis';
   lineClamp?: number;
-  fontFamily?: string;
+  // fontFamily?: string;
   fontWeight?:
     | 'normal'
     | 'bold'
@@ -189,7 +189,7 @@ export type DrawElementType = {
     | '900';
   fontStyle?: 'normal' | 'italic' | 'oblique';
   color?: string;
-  textDecoration?: 'none' | 'underline' | 'line-through';
+  // textDecoration?: 'none' | 'underline' | 'line-through';
   textShadow?: {
     blur: number;
     color: string;
@@ -228,7 +228,7 @@ export type DrawTextParamsType = {
   color?: string;
   fontSize?: number;
   fontWeight?: FontWeightType;
-  shadow?: {
+  textShadow?: {
     blur: number;
     color: string;
     offsetX: number;
