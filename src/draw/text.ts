@@ -16,26 +16,33 @@ export const drawText = (
     fontWeight = 'normal',
     textAlign = 'left',
     lineHeight = fontSize * 1.5,
-    shadow,
+    textShadow,
     opacity = 1,
   } = options;
   ctx.save();
-  ctx.font = `${fontWeight} ${fontSize}px "PingFang SC"`;
+  ctx.font = `${fontWeight} ${fontSize}px "microsoft yahei"`;
   if (color) {
     ctx.fillStyle = color;
   }
   ctx.textAlign = textAlign;
   ctx.globalAlpha = opacity;
-  if (shadow) {
-    ctx.shadowColor = shadow.color;
-    ctx.shadowBlur = shadow.blur;
-    ctx.shadowOffsetX = shadow.offsetX;
-    ctx.shadowOffsetY = shadow.offsetY;
+  if (textShadow) {
+    ctx.shadowColor = textShadow.color;
+    ctx.shadowBlur = textShadow.blur;
+    ctx.shadowOffsetX = textShadow.offsetX;
+    ctx.shadowOffsetY = textShadow.offsetY;
   }
   ctx.textBaseline = 'middle';
+  let x = left;
+  if(textAlign === 'center') {
+    x = left + width / 2;
+  }
+  if(textAlign === 'right'){
+    x = left + width;
+  }
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    ctx.fillText(line, left, top + i * lineHeight + lineHeight / 2, width);
+    ctx.fillText(line, x, top + i * lineHeight + lineHeight / 2, width);
   }
   ctx.restore();
 };
@@ -55,7 +62,7 @@ export function measureText(
     lineClamp = MAX_LINE_CLAMP,
     letterSpacing = 0,
   } = measureStyle;
-  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'PingFang SC']
+  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'microsoft yahei']
     .filter(Boolean)
     .join(' ');
   const lines = [];
@@ -93,5 +100,8 @@ export function measureText(
     lines.push(text.slice(startIndex, currentIndex));
   }
   const showLineNumber = lines.length > lineClamp ? lineClamp : lines.length;
+  if(lines.length=== 1) {
+    return { width: Math.ceil(ctx.measureText(lines[0]).width), height: lineHeight, lines };
+  }
   return { width: width, height: showLineNumber * lineHeight, lines };
 }
