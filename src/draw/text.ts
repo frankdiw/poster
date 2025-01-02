@@ -20,7 +20,7 @@ export const drawText = (
     opacity = 1,
   } = options;
   ctx.save();
-  ctx.font = `${fontWeight} ${fontSize}px "microsoft yahei"`;
+  ctx.font = `${fontWeight} ${fontSize}px "PingFang SC"`;
   if (color) {
     ctx.fillStyle = color;
   }
@@ -34,10 +34,10 @@ export const drawText = (
   }
   ctx.textBaseline = 'middle';
   let x = left;
-  if(textAlign === 'center') {
+  if (textAlign === 'center') {
     x = left + width / 2;
   }
-  if(textAlign === 'right'){
+  if (textAlign === 'right') {
     x = left + width;
   }
   for (let i = 0; i < lines.length; i++) {
@@ -62,7 +62,7 @@ export function measureText(
     lineClamp = MAX_LINE_CLAMP,
     letterSpacing = 0,
   } = measureStyle;
-  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'microsoft yahei']
+  ctx.font = [fontStyle, fontWeight, fontSize + 'px', 'PingFang SC']
     .filter(Boolean)
     .join(' ');
   const lines = [];
@@ -100,8 +100,12 @@ export function measureText(
     lines.push(text.slice(startIndex, currentIndex));
   }
   const showLineNumber = lines.length > lineClamp ? lineClamp : lines.length;
-  if(lines.length=== 1) {
-    return { width: Math.ceil(ctx.measureText(lines[0]).width), height: lineHeight, lines };
+  if (lines.length === 1) {
+    return {
+      width: Math.ceil(ctx.measureText(lines[0]).width),
+      height: lineHeight,
+      lines,
+    };
   }
   return { width: width, height: showLineNumber * lineHeight, lines };
 }
